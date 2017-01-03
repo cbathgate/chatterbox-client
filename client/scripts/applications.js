@@ -1,12 +1,11 @@
 $(document).ready( () => {
+  //our click handles( should've been in init but won't work with $(this))
+  //our friend button
   $('#main').on('click', 'button', function(event) {
     $(this).toggleClass('friend');
     let username = $(this).val();
-    console.log(username);
     $('.messages').each(function(index) {
-      console.log($(this).val());
       if ( $(this).hasClass(username) ) {
-        console.log('hi');
         $(this).toggleClass('bold');
       }
     });
@@ -14,6 +13,7 @@ $(document).ready( () => {
   });
   let username = prompt('What is your name?');
   let roomname = prompt('Enter your roomname');
+  //our send button
   $('#main').on('submit', event => {
     app.handleSubmit();
     let text = $('#message').val();
@@ -25,17 +25,20 @@ $(document).ready( () => {
     app.send(message);
     return false;
   });
+  //our room select button
   $('#roomSelect').change( () => {
     app.room = $('#roomSelect').val();
     app.clearMessages();
     app.fetch();
   });
+  //our init(basically)
   app.fetch();
-  setTimeout( () => {
+  setTimeout( function() {
     app.renderRoom();
   }, 1000);
+  //set interval to refresh page
   setInterval( () => {
     app.clearMessages();
     app.fetch();
-  }, 10000);
+  }, 50000);
 });
