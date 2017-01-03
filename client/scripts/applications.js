@@ -1,22 +1,41 @@
-$(document).ready(function() {
-  $('#main').on('click', function(event) {
+$(document).ready( () => {
+  $('#main').on('click', 'button', function(event) {
+    $(this).toggleClass('friend');
+    let username = $(this).val();
+    console.log(username);
+    $('.messages').each(function(index) {
+      console.log($(this).val());
+      if ( $(this).hasClass(username) ) {
+        console.log('hi');
+        $(this).toggleClass('bold');
+      }
+    });
     app.handleUsernameClick();
   });
-  var username = prompt('What is your name?');
-  $('#main').on('submit', function(event) {
+  let username = prompt('What is your name?');
+  let roomname = prompt('Enter your roomname');
+  $('#main').on('submit', event => {
     app.handleSubmit();
-    var text = $('#message').val();
+    let text = $('#message').val();
     let message = {
       username: username,
       text: text,
-      roomname: 'lobby'
+      roomname: roomname
     };
     app.send(message);
     return false;
   });
-  app.fetch();
-  setInterval( function() {
+  $('#roomSelect').change( () => {
+    app.room = $('#roomSelect').val();
     app.clearMessages();
     app.fetch();
-  }, 20000);
+  });
+  app.fetch();
+  setTimeout( () => {
+    app.renderRoom();
+  }, 1000);
+  setInterval( () => {
+    app.clearMessages();
+    app.fetch();
+  }, 10000);
 });

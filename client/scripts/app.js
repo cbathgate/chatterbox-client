@@ -1,7 +1,9 @@
 // YOUR CODE HERE:
 const app = {
   server: 'https://api.parse.com/1/classes/messages',
-  // username: 
+  rooms: {},
+  usernames: {},
+  room: 'lobby',
   init: () => {
   },
   send: (message) => {
@@ -40,20 +42,28 @@ const app = {
     if (Array.isArray(messages)) {
       messages = _.uniq(messages);
       for ( let message of messages) {
-        let $node = $(`<div>${message.username}: ${app.escapeHtml(message.text)}</div>`);
-        $('#chats').append($node);
-        let $button = $(`<button class=username>${message.username}</button>`);
-        $('.Username').append($button); 
+        app.rooms[message.roomname] = 0;
+        if ( message.roomname === app.room ) {
+          let $node = $(`<div class="messages ${message.username}">${message.username}: ${app.escapeHtml(message.text)}</div>`);
+          $('#chats').append($node);
+          app.usernames[message.username] = 0;
+        } 
       }
     } else {
-      let $node = $(`<div>${message.username}: ${message.text}</div>`);
+      let $node = $(`<div class="messages ${message.username}">${messages.username}: ${messages.text}</div>`);
       $('#chats').append($node);
-      let $button = $(`<button class=username>${message.username}</button>`);
+      let $button = $(`<button class="username">${messages.username}</button>`);
+      $('.Username').append($button); 
+    }
+    for ( let key in app.usernames) {
+      let $button = $(`<button class="username" value=${key}>${key}</button>`);
       $('.Username').append($button); 
     }
   },
   renderRoom: (name) => {
-    $('#roomSelect').append(`<div>${name}</div>`);
+    for ( let key in app.rooms) {
+      $('#roomSelect').append(`<option value=${key}>${key}</option>`);
+    }
   },
   handleUsernameClick: () => {
   },
