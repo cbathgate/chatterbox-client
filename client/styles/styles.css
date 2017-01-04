@@ -33,7 +33,7 @@ body {
 }
 
 #main {
-    background-color: #FCEFA6;
+    background-color: #ffed8b;
 }
 
 #main .error {
@@ -90,16 +90,23 @@ form input[type=text] {
     padding: 10px;
 }
 
+.messages {
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid;
+    padding: 4px 8px;
+    margin: 10px;
+    border-radius: 3px;
+    background-color: #fff7ce;
+}
+
 .friend {
     color: #fff;
     background-color: #0090da;
 }
+
+
 .bold {
     font-weight: bold;
-    color: #fff;
-    background-color: #0090da;
-}
-
-.messages {
-    font-family: 'Poppins', sans-serif;
+    color: black;
+    background-color: #7fcaf1;
 }
