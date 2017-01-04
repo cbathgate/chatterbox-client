@@ -119,9 +119,10 @@ const app = {
     let message = {
       username: app.username,
       text: text,
-      roomname: app.roomname
+      roomname: app.room
     };
     app.send(message);
+    app.fetch();
     event.preventDefault();
   },
   //handle room change
